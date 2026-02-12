@@ -56,8 +56,51 @@
             console.log(max.nev);
             console.log(max.hegyseg);
             console.log(max.magas);
+            let bemagas = parseInt(window.prompt("Adj meg egy magasságot!"));
+            let van = false;
+            for (const h of hegyek){
+                if(h.hegyseg == "Börzsöny" && h.magas > bemagas){
+                    van = true;
+                    break;
+                }
+            }
+            if (van){
+                console.log("Van a Börzsönyben ilyen magas hegy!");
+            } else {
+                console.log("Nincs a Börzsönyben ilyen magas hegy!");
 
-            
+            const lab = 3.28083;
+
+            let db = 0;
+            for (const h of hegyek){
+                if(h.magas * lab > 3000){
+                    db++;
+                }
+            }
+            console.log("3000 lábnál magasabb hegyek száma: " + db);
+
+            let hegysegek = new Set();
+            for (const h of hegyek){
+                hegysegek.add(h.hegyseg);
+            }
+
+            for (const hegyseg of hegysegek){
+                let db = 0;
+                for (const h of hegyek){
+                    if(h.hegyseg == hegyseg){
+                        db++;
+                    }
+                }
+            }
+            console.log(hegyseg + "  -  " + db + " db");
+
+            for (const h of hegyek){
+                if(h.hegyseg == "Bükk-vidék"){
+                    let labmagas = Math.round(h.magas * lab * 10) / 10;
+                    console.log(h.nev + ";" + labmagas);
+                }
+
+            }
 
         }
     }
