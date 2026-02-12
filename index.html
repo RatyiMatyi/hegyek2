@@ -12,7 +12,6 @@
     function olvas(mit){
         let file = mit.files[0];
         let olvaso = new FileReader();
-    }
 
         olvaso.readAsText(file);
 
@@ -31,6 +30,7 @@
             let hegyek = [];
             let sorok = tartalom.split("\n");
             for(let i = 1; i < sorok.length; i++){
+                if (!sorok[i].trim()) continue;
                 let darabok = sorok[i].split(";");
                 let h = new Hegycsucs(darabok[0], darabok[1], parseInt(darabok[2]));
                 hegyek.push(h);
@@ -38,6 +38,11 @@
             console.log(hegyek);
             
             console.log("Hegyek száma " + hegyek.length);
+
+            if (hegyek.length === 0) {
+                console.log("Nincs adat.");
+                return;
+            }
 
             let osszeg = 0;
             for (const h of hegyek) {
@@ -53,10 +58,11 @@
                 }
             }
 
-            console.log("Legmagsabb hegy:")
+            console.log("Legmagasabb hegy:");
             console.log(max.nev);
             console.log(max.hegyseg);
             console.log(max.magas);
+
             let bemagas = parseInt(window.prompt("Adj meg egy magasságot!"));
             let van = false;
             for (const h of hegyek){
@@ -69,6 +75,7 @@
                 console.log("Van a Börzsönyben ilyen magas hegy!");
             } else {
                 console.log("Nincs a Börzsönyben ilyen magas hegy!");
+            }
 
             const lab = 3.28083;
 
@@ -92,18 +99,16 @@
                         db++;
                     }
                 }
+                console.log(hegyseg + "  -  " + db + " db");
             }
-            console.log(hegyseg + "  -  " + db + " db");
 
             for (const h of hegyek){
                 if(h.hegyseg == "Bükk-vidék"){
                     let labmagas = Math.round(h.magas * lab * 10) / 10;
                     console.log(h.nev + ";" + labmagas);
                 }
-
             }
-
-        }
-    }
+        } 
+    } 
 </script>
 </html>
